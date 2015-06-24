@@ -1,0 +1,51 @@
+diff -Naur dose3-3.3/Makefile dose3-3.3.stable/Makefile
+--- dose3-3.3/Makefile	2014-11-18 11:42:46.000000000 +0000
++++ dose3-3.3.stable/Makefile	2015-06-12 23:01:30.107047600 +0100
+@@ -176,20 +176,20 @@
+ 	@cd _build/applications ; \
+ 	install -d $(BINDIR) ; \
+ 	for f in $$(ls *.$(OCAMLEXT)) ; do \
+-	  install $(INSTALLOPTS) $$f $(BINDIR)/$${f%.$(OCAMLEXT)} ; \
++	  install $(INSTALLOPTS) $$f $(BINDIR)/$${f%.$(OCAMLEXT)}.exe ; \
+ 	done
+-	@ln -s $(BINDIR)/distcheck $(BINDIR)/debcheck
+-	@ln -s $(BINDIR)/distcheck $(BINDIR)/rpmcheck
+-	@ln -s $(BINDIR)/distcheck $(BINDIR)/eclipsecheck
++	@cp $(BINDIR)/distcheck $(BINDIR)/debcheck.exe
++	@cp $(BINDIR)/distcheck $(BINDIR)/rpmcheck.exe
++	@cp $(BINDIR)/distcheck $(BINDIR)/eclipsecheck.exe
+ 	@echo "Install dose librairies to $(LIBDIR)"
+ 	@echo "Install dose binaries to $(BINDIR)"
+ 
+ uninstall: uninstallcudf
+ 	@$(OCAMLFIND) remove -destdir $(LIBDIR) $(NAME)
+ 	@for f in $$(ls *.$(OCAMLEXT)) ; do \
+-	  rm -f $(BINDIR)/$${f%.$(OCAMLEXT)} ; \
++	  rm -f $(BINDIR)/$${f%.$(OCAMLEXT)}.exe ; \
+ 	done
+-	@rm -f $(BINDIR)/debcheck $(BINDIR)/rpmcheck $(BINDIR)/eclipsecheck
++	@rm -f $(BINDIR)/debcheck.exe $(BINDIR)/rpmcheck.exe $(BINDIR)/eclipsecheck.exe
+ 	@echo "Uninstall dose librairies from $(LIBDIR)"
+ 	@echo "Uninstall dose binaries from $(BINDIR)"
+ 
+diff -Naur dose3-3.3/Makefile.config.in dose3-3.3.stable/Makefile.config.in
+--- dose3-3.3/Makefile.config.in	2014-11-18 11:42:46.000000000 +0000
++++ dose3-3.3.stable/Makefile.config.in	2015-06-12 00:55:02.188495900 +0100
+@@ -13,7 +13,7 @@
+ ifeq ($(DESTDIR),)
+ exec_prefix=@prefix@
+ BINDIR=@bindir@
+-LIBDIR=$(shell ocamlfind printconf destdir)
++LIBDIR=@libdir@
+ 
+ INSTALL=$(OCAMLFIND) install -destdir $(LIBDIR)
+ UNINSTALL=$(OCAMLFIND) remove -destdir $(LIBDIR)
+@@ -39,7 +39,7 @@
+ 
+ ifeq ("@OCAMLEXT@","native")
+   OCAMLBUILD=@OCAMLBUILD@
+-  INSTALLOPTS=-s
++  INSTALLOPTS=-s --strip-program=i686-w64-mingw32-strip
+ else
+   OCAMLBUILD=@OCAMLBUILD@ -byte-plugin
+   INSTALLOPTS=

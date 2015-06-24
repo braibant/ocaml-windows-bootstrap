@@ -1,0 +1,12 @@
+diff -Naur camlp4-4.02.1-3/myocamlbuild.ml camlp4-4.02.1-3/myocamlbuild.ml
+--- camlp4-4.02.1-3/myocamlbuild.ml	2015-02-27 17:02:05.000000000 +0000
++++ camlp4-4.02.1-3/myocamlbuild.ml	2015-06-14 19:45:50.476948800 +0100
+@@ -86,7 +86,7 @@
+         let dep = "camlp4"/"boot"/exe in
+         let cmd =
+           let ( / ) = Filename.concat in
+-          "camlp4"/"boot"/exe
++          String.escaped (String.escaped ("camlp4"/"boot"/exe))
+         in
+         (Some dep, cmd)
+     in

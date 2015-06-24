@@ -1,0 +1,12 @@
+diff -Naur dose3-3.3/algo/dominators.ml dose3-3.3.stable/algo/dominators.ml
+--- dose3-3.3/algo/dominators.ml	2014-11-18 11:42:46.000000000 +0000
++++ dose3-3.3.stable/algo/dominators.ml	2015-06-12 00:35:41.706104900 +0100
+@@ -99,7 +99,7 @@
+   ) graph;
+ 
+   Util.Timer.start tjntimer;
+-  let module Dom = Dominator.Make(G) in
++  let module Dom = Dominator.Make_graph(G) in
+   let idom = Dom.compute_all graph start_pkg in
+   let domgr = idom.Dom.dom_graph () in
+   Util.Timer.stop tjntimer ();
