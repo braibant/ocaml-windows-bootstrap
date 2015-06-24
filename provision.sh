@@ -1,4 +1,4 @@
-set -ex 
+set -ex
 
 x="$(uname -m)"
 case "$x" in
@@ -54,11 +54,11 @@ unpack_github() {
 unpack_targz(){
 	where=$1
 	archive=$2.tar.gz
-	if [ ! -f $archive ] ; then 
+	if [ ! -f $archive ] ; then
 		wget ${where}/${archive}
 		tar xzvf ${archive}
 	fi;
-}		
+}
 
 make_ocamlroot()
 {
@@ -70,9 +70,9 @@ make_ocamlroot()
 }
 
 install_flexdll(){
-    echo "Install flexdll" 
+    echo "Install flexdll"
 	wget http://alain.frisch.fr/flexdll/flexdll-bin-0.34.zip
-	unzip -o flexdll-bin-0.34.zip -d flexdll-0.34 
+	unzip -o flexdll-bin-0.34.zip -d flexdll-0.34
 	#tar --transform=s/^flexdll/flexdll-0.34/ -xzf flexdll-0.34.tar.gz
     cd flexdll-0.34
     for i in flexdll_{initer_,}mingw.o flexdll.h flexlink.exe; do cp $i $OCAMLROOT/bin ; done
@@ -81,7 +81,7 @@ install_flexdll(){
 
 install_ocaml(){
 	echo "Install OCaml"
-	unpack_github ocaml ocaml 4.02.1 
+	unpack_github ocaml ocaml 4.02.1
 	cd ocaml-4.02.1
 	cp config/m-nt.h config/m.h
     cp config/s-nt.h config/s.h
@@ -103,7 +103,7 @@ install_findlib(){
 	make all opt install
 	echo $OCAMLLIB\\site-lib\\stublibs>> $OCAMLROOT/lib/ld.conf
 	cd ..
-	
+
 }
 install_ocamlgraph(){
 	unpack_targz http://ocamlgraph.lri.fr/download ocamlgraph-1.8.6
@@ -133,7 +133,7 @@ install_uutf(){
 }
 
 install_jsonm(){
-	wget http://erratique.ch/software/jsonm/releases/jsonm-0.9.1.tbz 
+	wget http://erratique.ch/software/jsonm/releases/jsonm-0.9.1.tbz
 	tar xjf jsonm-0.9.1.tbz
 	cd jsonm-0.9.1
 	ocaml setup.ml -configure --prefix $CMD_OCAMLROOT
@@ -146,7 +146,7 @@ install_camlp4(){
 	unpack_github ocaml camlp4 4.02+3
 	cd camlp4-4.02-3
 	wget https://gist.githubusercontent.com/braibant/2aec4a03e99f97ce0a51/raw/c809239db266284a3742dff4f412dbb09e33004e/camlp4 -O camlp4.patch
-	patch -p1 < camlp4.patch 
+	patch -p1 < camlp4.patch
 	./configure
 	make all install
 	cd ..
@@ -179,7 +179,7 @@ install_cppo(){
 	wget http://mjambon.com/releases/cppo/cppo-0.9.4.tar.gz
 	tar -xzf cppo-0.9.4.tar.gz
 	cd cppo-0.9.4
-	make 
+	make
 	make install
 	cd ..
 }
@@ -189,16 +189,16 @@ install_dose(){
 	wget https://gforge.inria.fr/frs/download.php/file/34277/dose3-3.3.tar.gz
 	tar -xzf dose3-3.3.tar.gz
 	cd dose3-3.3
-	PATCHES=../patches
-	patch -p1 < $PATCHES/dose3-3.3-failures.patch 
+	PATCHES=../../patches
+	patch -p1 < $PATCHES/dose3-3.3-failures.patch
 	patch -p1 < $PATCHES/dose3-3.3-ocamlgraph-1.8.6.patch
 	patch -p1 < $PATCHES/dose3-3.3-windows.patch
 	rm doseparseNoRpm
     cp -R doseparse doseparseNoRpm
     rm doseparseNoRpm/doseparseNoRpm.mlpack
-	cp --remove-destination doseparseNoRpm/doseparse.mlpack doseparseNoRpm/doseparseNoRpm.mlpack	
+	cp --remove-destination doseparseNoRpm/doseparse.mlpack doseparseNoRpm/doseparseNoRpm.mlpack
 	./configure CC=i686-w64-mingw32-gcc --with-ocamlgraph --prefix=$CMD_OCAMLROOT --libdir=$OCAMLLIB/site-lib
-    make OCAMLLIB=$OCAMLLIB  
+    make OCAMLLIB=$OCAMLLIB
 	make install
 }
 
@@ -208,16 +208,16 @@ install()
 	cd src
 	make_ocamlroot
 	install_flexdll
-	install_ocaml	
+	install_ocaml
 	install_findlib
 	install_ocamlgraph
 	install_cmdliner
 	install_uutf
-	install_jsonm 
+	install_jsonm
 	install_camlp4
 	install_extlib
 	install_re
-	install_cudf 
+	install_cudf
 	install_dose
 }
 
@@ -228,7 +228,7 @@ install_opam(){
 	./configure CC=i686-w64-mingw32-gcc --prefix=$CMD_OCAMLROOT
 	AR=i686-w64-mingw32-ar CC=i686-w64-mingw32-gcc make
 	make install
-	
+
 }
 
 # Complete install
