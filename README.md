@@ -12,7 +12,7 @@ This installs cygwin and the required cygwin packages. Then, from a cygwin termi
 From a powershell again, 
 ```
 $env:Path = $env:Path + ";C:\ocaml\bin;C:\cygwin\bin"
-Set-Variable HOME "C:\Users\USER" -Force
+$env:HOME = "C:\Users\USER"
 ```
 
 Then, `opam.exe init` should work.
