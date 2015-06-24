@@ -20,7 +20,7 @@ echo "ARCH $CYG_ARCH"
 
 # -P mingw64-$MINGW_ARCH-gcc-core, mingw64-$MINGW_ARCH-gcc-g++ 
 
-$PACKAGES="-P wget,dos2unix,diffutils,cpio,make,m4,patch  -P mingw64-x86_64-gcc-core, mingw64-x86_64-gcc-g++  -P mingw64-i686-gcc-core, mingw64-i686-gcc-g++  -P zip,git,unzip,autoconf,libncurses-devel,curl,patch"
+$PACKAGES="-P wget,dos2unix,diffutils,cpio,make,m4,patch  -P mingw64-x86_64-gcc-core, mingw64-x86_64-gcc-g++  -P mingw64-i686-gcc-core, mingw64-i686-gcc-g++  -P zip,git,unzip,autoconf,libncurses-devel,patch"
 
 function Install-Cygwin {
    param ( $TempCygDir="$env:temp\cygInstall" )
