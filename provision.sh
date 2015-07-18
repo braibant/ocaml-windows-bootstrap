@@ -173,6 +173,7 @@ install_cudf(){
 	tar -xzf cudf-0.8.tar.gz
 	cd cudf-0.8
 	make BINDIR='cygdrive/c/ocaml/bin' all opt install
+	cd ..
 }
 
 install_cppo(){
@@ -200,6 +201,7 @@ install_dose(){
 	./configure CC=i686-w64-mingw32-gcc --with-ocamlgraph --prefix=$CMD_OCAMLROOT --libdir=$OCAMLLIB/site-lib
     make OCAMLLIB=$OCAMLLIB
 	make install
+	cd ..
 }
 
 install()
@@ -228,7 +230,7 @@ install_opam(){
 	./configure CC=i686-w64-mingw32-gcc --prefix=$CMD_OCAMLROOT
 	AR=i686-w64-mingw32-ar CC=i686-w64-mingw32-gcc make
 	make install
-
+	cd ..
 }
 
 # Complete install
@@ -336,6 +338,7 @@ cygwin_install() {
 
 install_asn1_combinators() {
     unpack_github mirleft ocaml-asn1-combinators 0.1.1
+    cd ocaml-asn1-combinators-0.1.1
     ocaml setup.ml -configure
     ocaml setup.ml -build
     ocaml setup.ml -install
@@ -344,6 +347,7 @@ install_asn1_combinators() {
 
 install_optcomp() {
     unpack_github diml optcomp 1.6
+    cd optcomp-1.6
     ./configure
     make
     make install
@@ -363,6 +367,7 @@ install_sexplib() {
 
 install_ocplib_endian() {
     unpack_github OCamlPro ocplib-endian 0.7
+    cd ocplib-endian-0.7
     ocaml setup.ml -configure --disable-debug
     ocaml setup.ml -build
     ocaml setup.ml -install
@@ -408,6 +413,7 @@ install_re() {
 install_alcotest() {
     need_pkg re
     unpack_github samoht alcotest 0.2.0
+    cd alcotest-0.2.0
     export ocamlfind='ocamlfind.exe'
     ocaml setup.ml -configure
     ocaml setup.ml -build
@@ -436,6 +442,7 @@ install_ppx_getenv() {
 
 install_hex() {
     unpack_github mirage ocaml-hex 0.1.0
+    cd ocaml-hex-0.1.0
     make
     make install
     cd ..
