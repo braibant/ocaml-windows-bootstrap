@@ -18,7 +18,7 @@ esac
 
 export OCAMLROOT=/cygdrive/c/ocaml
 export CMD_OCAMLROOT="C:\/ocaml"
-export OCAMLLIB="C:\ocaml/lib"
+export OCAMLLIB="C:/ocaml/lib"
 
 export PATH=$PATH:$OCAMLROOT/bin:/cygdrive/c/cygwin/bin
 # Helper to install packages that use substitution & *.install
