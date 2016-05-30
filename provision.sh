@@ -199,6 +199,7 @@ install_dose(){
     rm doseparseNoRpm/doseparseNoRpm.mlpack
 	cp --remove-destination doseparseNoRpm/doseparse.mlpack doseparseNoRpm/doseparseNoRpm.mlpack
 	./configure CC=i686-w64-mingw32-gcc --with-ocamlgraph --prefix=$CMD_OCAMLROOT --libdir=$OCAMLLIB/site-lib
+	find . -iname '*.ml' | xargs sed -i 's/let options = OptParser.make ~description\(.*\)/let status = None let options = OptParser.make ~description\1 ?status/'
     make OCAMLLIB=$OCAMLLIB
 	make install
 	cd ..
